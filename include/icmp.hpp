@@ -42,7 +42,7 @@ public:
      * @param value
      */
     explicit ICMP(uint8_t type = 0x00, uint8_t code = 0x00,
-                  uint16_t checksum = 0x0000, uint32_t message_body = 0x00000000);
+                  uint32_t message_body = 0x00000000);
 
     /**
      * @brief Destroy the ICMP object
@@ -51,11 +51,50 @@ public:
     virtual ~ICMP();
 
     /**
+     * @brief Get the type object
+     * 
+     * @return uint8_t 
+     */
+    uint8_t get_type();
+
+    /**
+     * @brief Get the code object
+     * 
+     * @return uint8_t 
+     */
+    uint8_t get_code();
+
+    /**
+     * @brief Set the type object
+     * 
+     * @param type 
+     * @return true 
+     * @return false 
+     */
+    bool set_type(uint8_t type);
+
+    /**
+     * @brief Set the code object
+     * 
+     * @param code 
+     * @return true 
+     * @return false 
+     */
+    bool set_code(uint8_t code);
+
+    /**
      * @brief This method transform ICMP packet fields in an array.
      *
      * @return Array encoded packet.
      */
-    std::vector<uint8_t> Encode();
+    std::vector<uint8_t> encode();
+
+protected:
+    /**
+     * @brief This method updates packet checksum.
+     * 
+     */
+    void update_checksum();
 
 private:
     /**
