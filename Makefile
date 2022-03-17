@@ -27,8 +27,8 @@ CC_FLAGS := -c \
 			-o \
 
 # Project dependences
-PROJ_DEP := -std=c++17 \
-			-std=gnu++17 \
+PROJ_DEP := -std=c++11 \
+			-std=gnu++11 \
 
 all: folders $(PROJ_NAME)
 
