@@ -3,18 +3,15 @@
  * @file icmp.hpp
  * @author Mateus Lima Alves (mateuslima.ti@gmail.com)
  * @brief Internet Control Message Protocol (ICMP) class headers acording
- * rfc4443 (https://datatracker.ietf.org/doc/html/rfc4443).
+ * rfc792 (https://datatracker.ietf.org/doc/html/rfc792).
  *
  *      0                   1                   2                   3
  *      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- *     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- *     |     Type      |     Code      |          Checksum             |
- *     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- *     |                                                               |
- *     +                         Message Body                          +
- *     |                                                               |
- *     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- *
+ *      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ *      |     Type      |     Code      |          Checksum             |
+ *      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ *      |                             unused                            |
+ *      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  *
  * @version 0.1
  * @date 2022-03-16
@@ -41,8 +38,7 @@ public:
      *
      * @param value
      */
-    explicit ICMP(uint8_t type = 0x00, uint8_t code = 0x00,
-                  uint32_t message_body = 0x00000000);
+    explicit ICMP(uint8_t type = 0x00, uint8_t code = 0x00);
 
     /**
      * @brief Destroy the ICMP object
@@ -112,15 +108,6 @@ private:
      * message and parts of the IPv6 header.
      */
     uint16_t checksum;
-    /**
-     * @brief ICMPv6 messages are grouped into two classes: error messages and
-     * informational messages.  Error messages are identified as such by a
-     * zero in the high-order bit of their message Type field values. Thus,
-     * error messages have message types from 0 to 127; informational
-     * messages have message types from 128 to 255.
-     *
-     */
-    uint32_t message_body;
 };
 
 #endif //__ICMP_HPP__

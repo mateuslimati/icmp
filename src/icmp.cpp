@@ -20,14 +20,9 @@
  * determines the format of the remaining data.
  * @param code The code field depends on the message type. It is used to create an
  * additional level of message granularity.
- * @param message_body ICMPv6 messages are grouped into two classes: error messages and
- * informational messages.  Error messages are identified as such by a
- * zero in the high-order bit of their message Type field values. Thus,
- * error messages have message types from 0 to 127; informational
- * messages have message types from 128 to 255.
  */
-ICMP::ICMP(uint8_t type, uint8_t code, uint32_t message_body) : 
-           type(type), code(code), message_body(message_body)
+ICMP::ICMP(uint8_t type, uint8_t code) : 
+           type(type), code(code)
 {
     this->update_checksum();
 }
@@ -97,13 +92,10 @@ std::vector<uint8_t> ICMP::encode()
 }
 
 /**
- * @brief The checksum is the 16-bit one's complement of the one's complement
- * sum of the entire ICMPv6 message, starting with the ICMPv6 message
- * type field, and prepended with a "pseudo-header" of IPv6 header
- * fields, as specified in [IPv6, Section 8.1].  The Next Header value
- * used in the pseudo-header is 58.  (The inclusion of a pseudo-header
- * in the ICMPv6 checksum is a change from IPv4; see [IPv6] for the
- * rationale for this change.)
+ * @brief The checksum is the 16-bit ones's complement of the one's
+ * complement sum of the ICMP message starting with the ICMP Type.
+ * For computing the checksum , the checksum field should be zero.
+ * This checksum may be replaced in the future.
  * 
  */
 void ICMP::update_checksum()
