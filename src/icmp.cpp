@@ -14,6 +14,7 @@
 #include <limits>
 #include <iterator>
 #include <iostream>
+#include <exceptions.hpp>
 
 /**
  * @brief Construct a new Icmp::Icmp object
@@ -69,7 +70,7 @@ uint16_t Icmp::get_identifier()
     {
         return this->data->at(0);
     }
-    return 0;
+    throw Exception(EXCEPTION_MSG("ICMP - This packet type don't have this attribute."));
 }
 
 /**
@@ -83,13 +84,13 @@ uint16_t Icmp::get_sequence_number()
     {
         return this->data->at(1);
     }
-    return 0;
+    throw Exception(EXCEPTION_MSG("ICMP - This packet type don't have this attribute."));
 }
 
 /**
  * @brief Get the data object
- * 
- * @return std::vector<uint16_t> 
+ *
+ * @return std::vector<uint16_t>
  */
 std::vector<uint16_t> Icmp::get_data()
 {
@@ -103,14 +104,14 @@ std::vector<uint16_t> Icmp::get_data()
  */
 void Icmp::set_type(message_type_t type)
 {
-    switch (this->type)
+    switch (type)
     {
-    case ECHO_REPLY:
     case ECHO:
     {
         this->data.reset(new std::vector<uint16_t>(2, 0));
         break;
     }
+    case ECHO_REPLY:
     case DESTINATION_UNREACHABLE:
     case SOURCE_QUENCH:
     case REDIRECT:
@@ -120,12 +121,9 @@ void Icmp::set_type(message_type_t type)
     case TIMESTAMP_REPLY:
     case INFORMATION_REQUEST:
     case INFORMATION_REPLY:
-    {
-        break;
-    }
     default:
     {
-        break;
+        throw Exception(EXCEPTION_MSG("ICMP - Packet type not implemented yet."));
     }
     }
     this->type = type;
@@ -151,7 +149,7 @@ void Icmp::set_code(message_code_t code)
     {
         if (code != DEFAULT_CODE)
         {
-            return;
+            throw Exception(EXCEPTION_MSG("ICMP - This packet type don't have this code."));
         }
         break;
     }
@@ -161,7 +159,7 @@ void Icmp::set_code(message_code_t code)
             code != PROTOCOL_UNREACHABLE && code != PORT_UNREACHABLE &&
             code != FRAGMENTATION_NEEDED && code != SOURCE_ROUTE_FAILED)
         {
-            return;
+            throw Exception(EXCEPTION_MSG("ICMP - This packet type don't have this code."));
         }
         break;
     }
@@ -170,7 +168,7 @@ void Icmp::set_code(message_code_t code)
         if (code != REDIRECT_DATAGRAMS_FOR_NET && code != REDIRECT_DATAGRAMS_FOR_HOST &&
             code != REDIRECT_DATAGRAMS_FOR_TOS_AND_NET && code != REDIRECT_DATAGRAMS_FOR_TOS_AND_HOST)
         {
-            return;
+            throw Exception(EXCEPTION_MSG("ICMP - This packet type don't have this code."));
         }
         break;
     }
@@ -178,13 +176,13 @@ void Icmp::set_code(message_code_t code)
     {
         if (code != TTL_EXCEEDED && code != FRAGMENT_REASSEMBLY_TIME_EXCEEDED)
         {
-            return;
+            throw Exception(EXCEPTION_MSG("ICMP - This packet type don't have this code."));
         }
         break;
     }
     default:
     {
-        return;
+        throw Exception(EXCEPTION_MSG("ICMP - This packet type don't have this code."));
     }
     }
     this->code = code;
@@ -217,9 +215,10 @@ void Icmp::set_identifier(uint16_t identifier)
     case INFORMATION_REPLY:
     default:
     {
-        break;
+        throw Exception(EXCEPTION_MSG("ICMP - This packet type don't have this attribute."));
     }
     }
+    return;
 }
 
 /**
@@ -247,7 +246,9 @@ void Icmp::set_sequence_number(uint16_t sequence_number)
     case INFORMATION_REQUEST:
     case INFORMATION_REPLY:
     default:
-        break;
+    {
+        throw Exception(EXCEPTION_MSG("ICMP - This packet type don't have this attribute."));
+    }
     }
 }
 
@@ -280,6 +281,7 @@ void Icmp::set_data(std::vector<uint16_t> data)
     default:
         break;
     }
+    return;
 }
 
 /**
@@ -324,4 +326,5 @@ void Icmp::update_checksum()
     checksum_tmp += (uint16_t)(checksum_tmp >> 16);
     checksum_tmp = (uint16_t)(__UINT16_MAX__ - (uint16_t)checksum_tmp);
     this->checksum = (uint16_t)checksum_tmp;
+    return;
 }

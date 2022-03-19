@@ -13,6 +13,7 @@
 #include <ipv4.hpp>
 #include <limits>
 #include <iterator>
+#include <inttypes.h>
 
 /**
  * @brief Construct a new Ipv 4:: Ipv 4 object
@@ -95,7 +96,7 @@ void Ipv4::set_protocol_number(uint8_t protocol_number)
  */
 void Ipv4::set_source_address(uint32_t source_address)
 {
-    this->source_address = source_address;
+    this->source_address = __builtin_bswap32(source_address);
 }
 
 /**
@@ -105,7 +106,7 @@ void Ipv4::set_source_address(uint32_t source_address)
  */
 void Ipv4::set_destination_address(uint32_t destination_address)
 {
-    this->destination_address = destination_address;
+    this->destination_address = __builtin_bswap32(destination_address);
 }
 
 /**
