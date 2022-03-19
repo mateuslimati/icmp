@@ -1,6 +1,6 @@
 /**
  * @file socket.cpp
- * @author Mateus Alves (you@domain.com)
+ * @author Mateus Alves (mateuslima.ti@gmail.com)
  * @brief
  * @version 0.1
  * @date 2022-02-15
@@ -33,12 +33,11 @@ Socket::Socket()
     fd = socket(AF_INET, SOCK_RAW, IPPROTO_RAW);
     if (fd < 0)
     {
-        std::cout << "Socket - Could not create socket. Erro " << errno << " FD " << fd << std::endl;
         throw Exception(EXCEPTION_MSG("Socket - Could not create socket"));
     }
 
     ret = setsockopt(fd, IPPROTO_IP, IP_HDRINCL, &option, sizeof(option));
-    if (ret == -1)
+    if (ret < 0)
     {
         throw Exception(EXCEPTION_MSG("Socket - Could not set socket options."));
     }
@@ -55,12 +54,12 @@ Socket::~Socket()
 }
 
 /**
- * @brief
- *
- * @param raw
- * @return int
+ * @brief 
+ * 
+ * @param raw 
+ * @param destination_address 
  */
-int Socket::send_raw(std::vector<uint8_t> raw, uint32_t destination_address)
+void Socket::send_raw(std::vector<uint8_t> raw, uint32_t destination_address)
 {
     int bytes_sent;
     struct sockaddr_in localaddr;
@@ -69,6 +68,10 @@ int Socket::send_raw(std::vector<uint8_t> raw, uint32_t destination_address)
     localaddr.sin_port = 0; // Any local port will do
 
     /* Send packet */
-    return sendto(this->s_file_descriptor, raw.data(), raw.size(), 0,
-                  (struct sockaddr *)&localaddr, sizeof(localaddr));
+    bytes_sent = sendto(this->s_file_descriptor, raw.data(), raw.size(), 0,
+                        (struct sockaddr *)&localaddr, sizeof(localaddr));
+    if (bytes_sent < 0)
+    {
+        throw Exception(EXCEPTION_MSG("Socket - Could not send raw to destination."));
+    }
 }
