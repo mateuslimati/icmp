@@ -15,7 +15,9 @@
 #include <icmp.hpp>
 #include <ipv4.hpp>
 #include <socket.hpp>
+#include <utils.hpp>
 #include <memory>
+#include <arpa/inet.h>
 
 /**
  * @brief service main function.
@@ -26,26 +28,26 @@
  */
 int main(int argc, char *argv[])
 {
+    uint32_t source_address, destination_address;
     try
     {
+        get_application_addresses(argc, argv, &source_address, &destination_address);
         std::unique_ptr<Icmp> icmp = std::make_unique<Icmp>(ECHO);
         std::unique_ptr<Ipv4> ipv4 = std::make_unique<Ipv4>();
         std::unique_ptr<Socket> socket = std::make_unique<Socket>();
 
-        icmp->set_identifier(0x1234);
-        icmp->set_sequence_number(0x0002);
-
         ipv4->set_protocol_number(ICMP_NUMBER);
-        ipv4->set_source_address(0xc0a8641F);
-        ipv4->set_destination_address(0x08080808);
-        
+        ipv4->set_source_address(source_address);
+        ipv4->set_destination_address(destination_address);
+
         ipv4->set_data(icmp->encode());
 
-        socket->send_raw(ipv4->encode(), 0x08080808);
+        socket->send_raw(ipv4->encode(), destination_address);
     }
     catch (const std::exception &e)
     {
-        std::cerr << e.what() << '\n';
+        std::cerr << e.what() << std::endl;
+        return EXIT_FAILURE;
     }
     return EXIT_SUCCESS;
 }

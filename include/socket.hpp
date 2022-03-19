@@ -26,10 +26,9 @@ public:
     explicit Socket();
     virtual ~Socket();
 
-    int send_raw(std::vector<uint8_t> raw, uint32_t destination_address);
+    void send_raw(std::vector<uint8_t> raw, uint32_t destination_address);
 private:
     int s_file_descriptor;
-    int e_file_descriptor;
 };
 
 #endif //__SOCKET_HPP__
