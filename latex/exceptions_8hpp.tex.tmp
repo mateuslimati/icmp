@@ -1,0 +1,46 @@
+\hypertarget{exceptions_8hpp}{}\doxysection{include/exceptions.hpp File Reference}
+\label{exceptions_8hpp}\index{include/exceptions.hpp@{include/exceptions.hpp}}
+
+
+File that contents the exception class declaration.  
+
+
+{\ttfamily \#include $<$exception$>$}\newline
+Include dependency graph for exceptions.\+hpp\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classException}{Exception}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{exceptions_8hpp_a21d1449c617db1fd3c7da4db2741bb7d}\label{exceptions_8hpp_a21d1449c617db1fd3c7da4db2741bb7d}} 
+\#define {\bfseries F\+I\+L\+E\+\_\+\+L\+I\+N\+E\+\_\+\+S\+T\+R\+\_\+\+\_\+}(line)~\#line
+\item 
+\mbox{\Hypertarget{exceptions_8hpp_acdf391ebbec5f533b999efd3b178f558}\label{exceptions_8hpp_acdf391ebbec5f533b999efd3b178f558}} 
+\#define {\bfseries F\+I\+L\+E\+\_\+\+L\+I\+N\+E\+\_\+\+S\+TR}(line)~F\+I\+L\+E\+\_\+\+L\+I\+N\+E\+\_\+\+S\+T\+R\+\_\+\+\_\+(line)
+\item 
+\mbox{\Hypertarget{exceptions_8hpp_a0d3fa404d0171e6d65b1da57245cc585}\label{exceptions_8hpp_a0d3fa404d0171e6d65b1da57245cc585}} 
+\#define {\bfseries E\+X\+C\+E\+P\+T\+I\+O\+N\+\_\+\+M\+SG}(string\+\_\+param)~(\+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+ \char`\"{}\+:\char`\"{}  F\+I\+L\+E\+\_\+\+L\+I\+N\+E\+\_\+\+S\+TR(\+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+) \char`\"{} -\/ \char`\"{} string\+\_\+param)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+File that contents the exception class declaration. 
+
+\begin{DoxyAuthor}{Author}
+Mateus Lima Alves (\href{mailto:mateuslima.ti@gmail.com}{\texttt{ mateuslima.\+ti@gmail.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2022-\/02-\/15
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2022 
+\end{DoxyCopyright}

@@ -20,8 +20,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="lds-logo.jpeg"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">LDS-Labs dev C++ challenger
+   &#160;<span id="projectnumber">1.0</span>
    </div>
    <div id="projectbrief">C++11 ping ICMP client implementation.</div>
   </td>
@@ -71,87 +73,87 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <a href="ipv4_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#ifndef __IPV4_HPP__</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#define __IPV4_HPP__</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="ipv4_8hpp.html#a8c5255a4fbe7cf953b9eb81dfcd25d02">   42</a></span>&#160;<span class="preprocessor">#define IP_VERSION                  4U</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="ipv4_8hpp.html#a5142564102ed77c89c3f5560647429db">   52</a></span>&#160;<span class="preprocessor">#define TOS_ROUTINE                 (0U &lt;&lt; 5)</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#define TOS_PRIORITY                (1U &lt;&lt; 5)</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#define TOS_IMMEDIATE               (2U &lt;&lt; 5)</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#define TOS_FLASH                   (3U &lt;&lt; 5)</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#define TOS_FLASH_OVERRIDE          (4U &lt;&lt; 5)</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#define TOS_CRITIC_ECP              (5U &lt;&lt; 5)</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#define TOS_INTERNETWORK_CONTROL    (6U &lt;&lt; 5)</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#define TOS_NETWORK_CONTROL         (7U &lt;&lt; 5)</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="ipv4_8hpp.html#aa9f9defa624e4590fe362e5df09b4e34">   68</a></span>&#160;<span class="preprocessor">#define TOS_DELAY                   (1U &lt;&lt; 4)</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#define TOS_THROUGHPUT              (1U &lt;&lt; 3)</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#define TOS_REABILITY               (1U &lt;&lt; 2)</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#define IP_MIN_LENGTH               (uint16_t)0x14</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#define IP_MIN_IHL                  (uint8_t)(IP_MIN_LENGTH / sizeof(uint32_t))</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="ipv4_8hpp.html#a4c305ff02093002fffd78a460cc97544">   80</a></span>&#160;<span class="preprocessor">#define FLAG_DF                     (1U &lt;&lt; 1)</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#define FLAG_MF                     (1U &lt;&lt; 0)</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#define DEFAULT_TTL                 (uint8_t)0x40</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keyword">enum</span> protocol_number</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;{</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    ICMP_NUMBER = 1,</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    TCP_NUMBER = 6</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;};</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="classIpv4.html">   95</a></span>&#160;<span class="keyword">class </span><a class="code" href="classIpv4.html">Ipv4</a></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;{</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classIpv4.html#a912b9009b33131c4ace7947a2a57288f">Ipv4</a>();</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classIpv4.html#afdd2a21f36a35ee299563065586c0965">~Ipv4</a>();</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    uint8_t <a class="code" href="classIpv4.html#aad31c24f95cfb51958b53c3d69091edb">get_protocol_number</a>();</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    uint32_t <a class="code" href="classIpv4.html#a425783db28b4a5094d72e2ee8b151263">get_source_address</a>();</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    uint32_t <a class="code" href="classIpv4.html#ac5c5d4ae9e8492bcbc7d22bcde6e9bf4">get_destination_address</a>();</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classIpv4.html#a69646ba004a60b6bbdb19603e9da5427">set_protocol_number</a>(uint8_t protocol_number);</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classIpv4.html#ab972c6b3dfa8b7827819d13a580cd8f8">set_source_address</a>(uint32_t source_address);</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classIpv4.html#a30f9121d5534375bd8c40de73cb743f9">set_destination_address</a>(uint32_t destination_address);</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classIpv4.html#a9e422829472b01ad4f154932a51708ad">set_data</a>(std::vector&lt;uint8_t&gt; data);</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    std::vector&lt;uint8_t&gt; <a class="code" href="classIpv4.html#adee0f8325396057ae034e637c7b1e505">encode</a>();</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classIpv4.html#a163f22b8d9f6d16f8a865bc8b466b9eb">update_checksum</a>();</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    uint8_t version : 4;</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    uint8_t ihl : 4;</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    uint8_t type_of_service;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    uint16_t total_length;</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    uint16_t identification;</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    uint8_t flags : 3;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    uint16_t fragment_offset : 13;</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    uint8_t ttl;</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    uint8_t protocol;</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    uint16_t checksum;</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    uint32_t source_address;</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    uint32_t destination_address;</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    std::shared_ptr&lt;std::vector&lt;uint16_t&gt;&gt; options;</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    std::shared_ptr&lt;std::vector&lt;uint8_t&gt;&gt; data;</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;};</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160; </div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;<span class="preprocessor">#endif //__IPV4_HPP__</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#ifndef __IPV4_HPP__</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#define __IPV4_HPP__</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="ipv4_8hpp.html#a8c5255a4fbe7cf953b9eb81dfcd25d02">   41</a></span>&#160;<span class="preprocessor">#define IP_VERSION                  4U</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="ipv4_8hpp.html#a5142564102ed77c89c3f5560647429db">   51</a></span>&#160;<span class="preprocessor">#define TOS_ROUTINE                 (0U &lt;&lt; 5)</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#define TOS_PRIORITY                (1U &lt;&lt; 5)</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#define TOS_IMMEDIATE               (2U &lt;&lt; 5)</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#define TOS_FLASH                   (3U &lt;&lt; 5)</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#define TOS_FLASH_OVERRIDE          (4U &lt;&lt; 5)</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#define TOS_CRITIC_ECP              (5U &lt;&lt; 5)</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#define TOS_INTERNETWORK_CONTROL    (6U &lt;&lt; 5)</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#define TOS_NETWORK_CONTROL         (7U &lt;&lt; 5)</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="ipv4_8hpp.html#aa9f9defa624e4590fe362e5df09b4e34">   67</a></span>&#160;<span class="preprocessor">#define TOS_DELAY                   (1U &lt;&lt; 4)</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#define TOS_THROUGHPUT              (1U &lt;&lt; 3)</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#define TOS_REABILITY               (1U &lt;&lt; 2)</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#define IP_MIN_LENGTH               (uint16_t)0x14</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">#define IP_MIN_IHL                  (uint8_t)(IP_MIN_LENGTH / sizeof(uint32_t))</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="ipv4_8hpp.html#a4c305ff02093002fffd78a460cc97544">   79</a></span>&#160;<span class="preprocessor">#define FLAG_DF                     (1U &lt;&lt; 1)</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#define FLAG_MF                     (1U &lt;&lt; 0)</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#define DEFAULT_TTL                 (uint8_t)0x40</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword">enum</span> protocol_number</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;{</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    ICMP_NUMBER = 1,</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    TCP_NUMBER = 6</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;};</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="classIpv4.html">   94</a></span>&#160;<span class="keyword">class </span><a class="code" href="classIpv4.html">Ipv4</a></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;{</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classIpv4.html#a912b9009b33131c4ace7947a2a57288f">Ipv4</a>();</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classIpv4.html#afdd2a21f36a35ee299563065586c0965">~Ipv4</a>();</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    uint8_t <a class="code" href="classIpv4.html#aad31c24f95cfb51958b53c3d69091edb">get_protocol_number</a>();</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    uint32_t <a class="code" href="classIpv4.html#a425783db28b4a5094d72e2ee8b151263">get_source_address</a>();</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    uint32_t <a class="code" href="classIpv4.html#ac5c5d4ae9e8492bcbc7d22bcde6e9bf4">get_destination_address</a>();</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classIpv4.html#a69646ba004a60b6bbdb19603e9da5427">set_protocol_number</a>(uint8_t protocol_number);</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classIpv4.html#ab972c6b3dfa8b7827819d13a580cd8f8">set_source_address</a>(uint32_t source_address);</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classIpv4.html#a30f9121d5534375bd8c40de73cb743f9">set_destination_address</a>(uint32_t destination_address);</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classIpv4.html#a9e422829472b01ad4f154932a51708ad">set_data</a>(std::vector&lt;uint8_t&gt; data);</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    std::vector&lt;uint8_t&gt; <a class="code" href="classIpv4.html#adee0f8325396057ae034e637c7b1e505">encode</a>();</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classIpv4.html#a163f22b8d9f6d16f8a865bc8b466b9eb">update_checksum</a>();</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    uint8_t version : 4;</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    uint8_t ihl : 4;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    uint8_t type_of_service;</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    uint16_t total_length;</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    uint16_t identification;</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    uint8_t flags : 3;</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    uint16_t fragment_offset : 13;</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    uint8_t ttl;</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    uint8_t protocol;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    uint16_t checksum;</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    uint32_t source_address;</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    uint32_t destination_address;</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    std::shared_ptr&lt;std::vector&lt;uint16_t&gt;&gt; options;</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    std::shared_ptr&lt;std::vector&lt;uint8_t&gt;&gt; data;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;};</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160; </div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;<span class="preprocessor">#endif //__IPV4_HPP__</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassIpv4_html_a30f9121d5534375bd8c40de73cb743f9"><div class="ttname"><a href="classIpv4.html#a30f9121d5534375bd8c40de73cb743f9">Ipv4::set_destination_address</a></div><div class="ttdeci">void set_destination_address(uint32_t destination_address)</div><div class="ttdoc">Set the destination address object.</div><div class="ttdef"><b>Definition:</b> ipv4.cpp:107</div></div>
 <div class="ttc" id="aclassIpv4_html_adee0f8325396057ae034e637c7b1e505"><div class="ttname"><a href="classIpv4.html#adee0f8325396057ae034e637c7b1e505">Ipv4::encode</a></div><div class="ttdeci">std::vector&lt; uint8_t &gt; encode()</div><div class="ttdoc">This method transform IPv4 packet fields in an array.</div><div class="ttdef"><b>Definition:</b> ipv4.cpp:128</div></div>
@@ -159,7 +161,7 @@ $(function() {
 <div class="ttc" id="aclassIpv4_html_ab972c6b3dfa8b7827819d13a580cd8f8"><div class="ttname"><a href="classIpv4.html#ab972c6b3dfa8b7827819d13a580cd8f8">Ipv4::set_source_address</a></div><div class="ttdeci">void set_source_address(uint32_t source_address)</div><div class="ttdoc">Set the source address object.</div><div class="ttdef"><b>Definition:</b> ipv4.cpp:97</div></div>
 <div class="ttc" id="aclassIpv4_html_ac5c5d4ae9e8492bcbc7d22bcde6e9bf4"><div class="ttname"><a href="classIpv4.html#ac5c5d4ae9e8492bcbc7d22bcde6e9bf4">Ipv4::get_destination_address</a></div><div class="ttdeci">uint32_t get_destination_address()</div><div class="ttdoc">Get the destination address object.</div><div class="ttdef"><b>Definition:</b> ipv4.cpp:77</div></div>
 <div class="ttc" id="aclassIpv4_html_afdd2a21f36a35ee299563065586c0965"><div class="ttname"><a href="classIpv4.html#afdd2a21f36a35ee299563065586c0965">Ipv4::~Ipv4</a></div><div class="ttdeci">virtual ~Ipv4()</div><div class="ttdoc">Destroy the Ipv 4 object.</div><div class="ttdef"><b>Definition:</b> ipv4.cpp:48</div></div>
-<div class="ttc" id="aclassIpv4_html"><div class="ttname"><a href="classIpv4.html">Ipv4</a></div><div class="ttdoc">IPv4 packet class.</div><div class="ttdef"><b>Definition:</b> ipv4.hpp:95</div></div>
+<div class="ttc" id="aclassIpv4_html"><div class="ttname"><a href="classIpv4.html">Ipv4</a></div><div class="ttdoc">IPv4 packet class.</div><div class="ttdef"><b>Definition:</b> ipv4.hpp:94</div></div>
 <div class="ttc" id="aclassIpv4_html_aad31c24f95cfb51958b53c3d69091edb"><div class="ttname"><a href="classIpv4.html#aad31c24f95cfb51958b53c3d69091edb">Ipv4::get_protocol_number</a></div><div class="ttdeci">uint8_t get_protocol_number()</div><div class="ttdoc">Get the protocol number object.</div><div class="ttdef"><b>Definition:</b> ipv4.cpp:57</div></div>
 <div class="ttc" id="aclassIpv4_html_a9e422829472b01ad4f154932a51708ad"><div class="ttname"><a href="classIpv4.html#a9e422829472b01ad4f154932a51708ad">Ipv4::set_data</a></div><div class="ttdeci">void set_data(std::vector&lt; uint8_t &gt; data)</div><div class="ttdoc">Set the data object.</div><div class="ttdef"><b>Definition:</b> ipv4.cpp:117</div></div>
 <div class="ttc" id="aclassIpv4_html_a425783db28b4a5094d72e2ee8b151263"><div class="ttname"><a href="classIpv4.html#a425783db28b4a5094d72e2ee8b151263">Ipv4::get_source_address</a></div><div class="ttdeci">uint32_t get_source_address()</div><div class="ttdoc">Get the source address object.</div><div class="ttdef"><b>Definition:</b> ipv4.cpp:67</div></div>

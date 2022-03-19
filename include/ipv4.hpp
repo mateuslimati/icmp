@@ -4,7 +4,6 @@
  * @author Mateus Lima Alves (mateuslima.ti@gmail.com)
  * @brief Internet Protocol version 4 (IPv4) class headers acording
  * rfc792 (https://datatracker.ietf.org/doc/html/rfc791).
- *
  *    0                   1                   2                   3
  *    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  *   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
