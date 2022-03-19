@@ -127,7 +127,9 @@ void Ipv4::set_data(std::vector<uint8_t> data)
 std::vector<uint8_t> Ipv4::encode()
 {
     std::vector<uint8_t> encoded_data = {};
-
+    
+    this->update_checksum();
+    
     encoded_data.push_back((this->version << 4) | this->ihl);
     encoded_data.push_back(this->type_of_service);
     encoded_data.push_back((uint8_t)(this->total_length >> 8) & __UINT8_MAX__);
@@ -138,6 +140,8 @@ std::vector<uint8_t> Ipv4::encode()
     encoded_data.push_back((uint8_t)(this->fragment_offset));
     encoded_data.push_back((uint8_t)this->ttl);
     encoded_data.push_back((uint8_t)this->protocol);
+    encoded_data.push_back((uint8_t)(this->checksum >> 8));
+    encoded_data.push_back((uint8_t)this->checksum & __UINT8_MAX__);
     encoded_data.push_back((uint8_t)(this->source_address >> 24));
     encoded_data.push_back((uint8_t)(this->source_address >> 16));
     encoded_data.push_back((uint8_t)(this->source_address >> 8));
@@ -146,10 +150,6 @@ std::vector<uint8_t> Ipv4::encode()
     encoded_data.push_back((uint8_t)(this->destination_address >> 16));
     encoded_data.push_back((uint8_t)(this->destination_address >> 8));
     encoded_data.push_back((uint8_t)this->destination_address);
-
-    this->update_checksum();
-    encoded_data.push_back((uint8_t)(this->checksum >> 8));
-    encoded_data.push_back((uint8_t)this->checksum & __UINT8_MAX__);
 
     for (auto it = this->options->begin(); it != this->options->end(); ++it)
     {

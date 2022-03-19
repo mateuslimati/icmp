@@ -291,10 +291,10 @@ std::vector<uint8_t> Icmp::encode()
 {
     std::vector<uint8_t> encoded_data = {};
 
+    this->update_checksum();
+
     encoded_data.push_back(this->type);
     encoded_data.push_back(this->code);
-
-    this->update_checksum();
     encoded_data.push_back(this->checksum >> 8);
     encoded_data.push_back(this->checksum & __UINT8_MAX__);
 
