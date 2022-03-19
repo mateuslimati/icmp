@@ -12,6 +12,8 @@
 
 #include <icmp.hpp>
 #include <limits>
+#include <iterator>
+#include <iostream>
 
 /**
  * @brief Construct a new Icmp::Icmp object
@@ -23,6 +25,7 @@
  */
 Icmp::Icmp(message_type_t type, message_code_t code)
 {
+    this->data = std::make_shared<std::vector<uint16_t>>();
     this->set_type(type);
     this->set_code(code);
 }
@@ -84,6 +87,16 @@ uint16_t Icmp::get_sequence_number()
 }
 
 /**
+ * @brief Get the data object
+ * 
+ * @return std::vector<uint16_t> 
+ */
+std::vector<uint16_t> Icmp::get_data()
+{
+    return *this->data.get();
+}
+
+/**
  * @brief Set the type object
  *
  * @param type
@@ -95,7 +108,7 @@ void Icmp::set_type(message_type_t type)
     case ECHO_REPLY:
     case ECHO:
     {
-        this->data = std::unique_ptr<std::vector<uint16_t>>(new std::vector<uint16_t>(2, 0));
+        this->data.reset(new std::vector<uint16_t>(2, 0));
         break;
     }
     case DESTINATION_UNREACHABLE:
@@ -239,6 +252,37 @@ void Icmp::set_sequence_number(uint16_t sequence_number)
 }
 
 /**
+ * @brief Set the data object
+ *
+ * @param data
+ */
+void Icmp::set_data(std::vector<uint16_t> data)
+{
+    switch (this->type)
+    {
+    case ECHO_REPLY:
+    case ECHO:
+    {
+        this->data->insert(this->data->end(),
+                           std::make_move_iterator(data.begin()),
+                           std::make_move_iterator(data.end()));
+        break;
+    }
+    case DESTINATION_UNREACHABLE:
+    case SOURCE_QUENCH:
+    case REDIRECT:
+    case TIME_EXCEEDED:
+    case PARAMETER_PROBLEM:
+    case TIMESTAMP:
+    case TIMESTAMP_REPLY:
+    case INFORMATION_REQUEST:
+    case INFORMATION_REPLY:
+    default:
+        break;
+    }
+}
+
+/**
  * @brief
  *
  * @return std::vector<uint8_t>
@@ -271,10 +315,13 @@ std::vector<uint8_t> Icmp::encode()
  */
 void Icmp::update_checksum()
 {
-    this->checksum = (this->type << 8) | this->code;
+    uint32_t checksum_tmp;
+    checksum_tmp = (this->type << 8) | this->code;
     for (auto it = this->data->begin(); it != this->data->end(); ++it)
     {
-        this->checksum += *it;
+        checksum_tmp += *it;
     }
-    this->checksum = (uint16_t)(__UINT16_MAX__ - this->checksum);
+    checksum_tmp += (uint16_t)(checksum_tmp >> 16);
+    checksum_tmp = (uint16_t)(__UINT16_MAX__ - (uint16_t)checksum_tmp);
+    this->checksum = (uint16_t)checksum_tmp;
 }

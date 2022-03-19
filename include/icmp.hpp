@@ -115,6 +115,13 @@ public:
     uint16_t get_sequence_number();
 
     /**
+     * @brief Set the data object
+     * 
+     * @return std::vector<uint16_t> 
+     */
+    std::vector<uint16_t> get_data();
+
+    /**
      * @brief Set the type object
      * 
      * @param type 
@@ -147,7 +154,7 @@ public:
      * 
      * @param data 
      */
-    void set_data(std::vector<uint8_t> data);
+    void set_data(std::vector<uint16_t> data);
 
     /**
      * @brief This method transform ICMP packet fields in an array.
@@ -183,7 +190,7 @@ private:
      * @brief The data received in the echo message must be returned in the echo
      * reply message.
      */
-    std::unique_ptr<std::vector<uint16_t>> data;
+    std::shared_ptr<std::vector<uint16_t>> data;
 };
 
 #endif //__ICMP_HPP__
